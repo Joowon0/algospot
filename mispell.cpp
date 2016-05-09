@@ -18,11 +18,13 @@ int main() {
   for (int i = 1; i <= num; i++) {
     int erasenum = 0;
     word[0] = 0;
-    
+
+    // get input
     cin >> erasenum;
     cin >> word;
     wordlen = strlen(word);
 
+    // if erasenum is 0, do nothing
     if(erasenum > 0) {
       memmove( word + erasenum - 1, word + erasenum, wordlen - erasenum);
       word[wordlen - 1] = 0;
