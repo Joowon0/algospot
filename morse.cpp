@@ -18,10 +18,62 @@ int composition(int n, int r) {
   return x/y;
 }
 
+void morse(int longCode, int shortCode, int nth) {
+  int i, tempX, count, cases[300];
+
+  if ( nth == 1) {
+    //printf("\nBase Case\n");
+    for (i = 0; i < longCode; i++)
+      printf("a");
+      //printf("%c", 45);
+    for (i = 0; i < shortCode; i++)
+      printf("b");
+    //printf("%c", 111);
+
+    printf("\n");
+    return;
+  }
+
+    
+  tempX = longCode+shortCode;
+  for (i=longCode; i>=0; i--) {
+      cases[i] = composition( tempX-1, shortCode-1);
+      tempX--;
+      //printf("%d\n",cases[i]);
+    }
+
+  /*
+    printf("\n");
+    for (i = 0; i <= longCode; i++)
+      printf("%d ", cases[i]);
+    printf("\n");
+
+  */
+    for (count = 0; count <= longCode; count++) {
+      nth -= cases[count];
+      //printf("%d ", nth);
+      
+      if (nth <= 0) {
+	nth += cases[count];
+	break;
+      }
+    }
+    //printf("%d %d\n\n", count, nth);
+
+
+    for (i = 0; i < longCode - count; i++)
+      printf("a");
+      //printf("%c", 45);
+    printf("b");
+    //printf("%c", 111);
+
+    morse(longCode-i, shortCode-1, nth);
+}
+
 
 int main () {
   int numcases, longCode, shortCode, nth;
-  int i, tempX, tempY, cases[100];
+  int i, tempX, count, cases[100];
   
   scanf("%d", &numcases);
 
@@ -29,16 +81,7 @@ int main () {
     scanf("%d %d %d", &longCode, &shortCode, &nth);
     //printf("%d %d %d %d\n", numcases, longCode, shortCode, nth);
 
-    tempX = longCode+shortCode;
-    for (i=longCode; i>=0; i--) {
-      cases[i] = composition( tempX-1, shortCode-1);
-      tempX--;
-      //printf("%d\n",cases[i]);
-    }
-
-    for (i = 0; i <= longCode; i++)
-      printf("%d ", cases[i]);
-    printf("\n");
+    morse(longCode, shortCode, nth);
   }
   return 0;
 }
