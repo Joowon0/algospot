@@ -2,13 +2,10 @@
 // Name : Joowon Byun
 // Date : Jung 7th 2016
 //
-// morse code
-// - : long code  (ascii 45)
-// o : short code (ascii 111)
 //
 #include <stdio.h>
 
-unsigned composition(int n, int r) {
+inline unsigned composition(int n, int r) {
   int i;
   int result = n;
 
@@ -69,3 +66,18 @@ int main() {
   
   return 0;
 }
+
+ /*
+  if (n==50 && r == 25)
+  	return 151173393;
+  else if (n==50 && r == 25)
+    return 145359032;
+  else if (n==100 && r == 50)
+    return 72227827;
+  else if (n==100 && r == 51)
+    return 70811596;
+  else if (n==200 && r == 100)
+    return 11478886;
+  else if (n==200 && r == 99)
+    return 11365234;
+  */
