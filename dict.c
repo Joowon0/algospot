@@ -7,7 +7,7 @@
 // o : short code (ascii 111)
 //
 #include <stdio.h>
-int combi[400][200];
+unsigned int combi[400][200];
 
 unsigned composition(int n, int r) {
   int i;
@@ -42,8 +42,10 @@ void dict(int As, int Bs, int nth) {
     printf("\n");
     return;
   }
-
-  totalHalf = combi[As + Bs - 1][Bs];
+  
+  totalHalf=0;
+  if (As + Bs >= 1) 
+    totalHalf = combi[As + Bs - 1][Bs];
   if (nth <= totalHalf) {
     printf("a");
     dict(As-1, Bs, nth);

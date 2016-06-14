@@ -4,6 +4,7 @@
 //
 //
 #include <stdio.h>
+unsigned int combi[201][101];
 
 inline unsigned composition(int n, int r) {
   int i;
@@ -39,26 +40,37 @@ void dict(int As, int Bs, int nth) {
     return;
   }
 
-  totalHalf = composition(As + Bs - 1, Bs);
+  totalHalf = combi[As + Bs - 1][Bs];
   if (nth <= totalHalf) {
     printf("a");
-    return dict(As-1, Bs, nth);
+    dict(As-1, Bs, nth);
   }
   else {
     printf("b");
-    return dict(As, Bs-1, nth - totalHalf);
+    dict(As, Bs-1, nth - totalHalf);
   }
 }
 
 int main() {
-  int numcases, As, Bs, nth;
+  int numcases, As, Bs, nth, i, j;
 
+  for (i = 0; i <= 200; i++) {
+    for (j = 0; j <= 100; j++)
+      combi[i][j] = composition(i, j);
+  }
+
+  for (i = 0; i <= 200; i++) {
+    for (j = 0; j <= 100; j++)
+      printf("%u ", combi[i][j]);
+    printf("\n");
+  }
+  
   scanf("%d", &numcases);
 
   while(numcases--) {
     scanf("%d %d %d", &As, &Bs, &nth);
 
-    if(composition(As + Bs, Bs) < nth)
+    if(combi[As + Bs][Bs] < nth)
       printf("NONE\n");
     else
       dict(As, Bs, nth);
@@ -66,18 +78,3 @@ int main() {
   
   return 0;
 }
-
- /*
-  if (n==50 && r == 25)
-  	return 151173393;
-  else if (n==50 && r == 25)
-    return 145359032;
-  else if (n==100 && r == 50)
-    return 72227827;
-  else if (n==100 && r == 51)
-    return 70811596;
-  else if (n==200 && r == 100)
-    return 11478886;
-  else if (n==200 && r == 99)
-    return 11365234;
-  */
