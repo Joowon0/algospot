@@ -2,13 +2,11 @@
 // Name : Joowon Byun
 // Date : Jung 7th 2016
 //
-// morse code
-// - : long code  (ascii 45)
-// o : short code (ascii 111)
 //
 #include <stdio.h>
+unsigned int combi[201][101];
 
-unsigned composition(int n, int r) {
+inline unsigned composition(int n, int r) {
   int i;
   int result = n;
 
@@ -42,26 +40,37 @@ void dict(int As, int Bs, int nth) {
     return;
   }
 
-  totalHalf = composition(As + Bs - 1, Bs);
+  totalHalf = combi[As + Bs - 1][Bs];
   if (nth <= totalHalf) {
     printf("a");
-    return dict(As-1, Bs, nth);
+    dict(As-1, Bs, nth);
   }
   else {
     printf("b");
-    return dict(As, Bs-1, nth - totalHalf);
+    dict(As, Bs-1, nth - totalHalf);
   }
 }
 
 int main() {
-  int numcases, As, Bs, nth;
+  int numcases, As, Bs, nth, i, j;
 
+  for (i = 0; i <= 200; i++) {
+    for (j = 0; j <= 100; j++)
+      combi[i][j] = composition(i, j);
+  }
+
+  for (i = 0; i <= 200; i++) {
+    for (j = 0; j <= 100; j++)
+      printf("%u ", combi[i][j]);
+    printf("\n");
+  }
+  
   scanf("%d", &numcases);
 
   while(numcases--) {
     scanf("%d %d %d", &As, &Bs, &nth);
 
-    if(composition(As + Bs, Bs) < nth)
+    if(combi[As + Bs][Bs] < nth)
       printf("NONE\n");
     else
       dict(As, Bs, nth);
